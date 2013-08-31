@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d145ec6d-5ba9-498d-932a-f3fc593e7f54">
+	<queryString language="SQL">
+		<![CDATA[select `m`.`nim` AS `nim`,`m`.`nama` AS `nama`,`j`.`judul` AS `judul`,`d`.`nama` AS `dosen` from (`mhs_seminar` `m` join (`dsn_pemb` `d` join `judul_seminar` `j` on((`d`.`nidn` = `j`.`nidn`))) on((`j`.`nim` = `m`.`nim`))); ]]>
+	</queryString>
+	<field name="nim" class="java.lang.String"/>
+	<field name="nama" class="java.lang.String"/>
+	<field name="judul" class="java.lang.String"/>
+	<field name="dosen" class="java.lang.String"/>
+	<group name="nim">
+		<groupExpression><![CDATA[$F{nim}]]></groupExpression>
+	</group>
+	<group name="nama">
+		<groupExpression><![CDATA[$F{nama}]]></groupExpression>
+	</group>
+	<group name="judul">
+		<groupExpression><![CDATA[$F{judul}]]></groupExpression>
+	</group>
+	<group name="dosen">
+		<groupExpression><![CDATA[$F{dosen}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

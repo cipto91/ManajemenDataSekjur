@@ -1,0 +1,906 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 4.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Manajemen Data</title>
+        <link type="text/css" rel="stylesheet" 
+              href="#{request.contextPath}/style/core.css"/>
+
+    </h:head>
+    <h:body>        
+        <h:form>
+            <!--untuk menu Item-->
+            <p:menubar id="menubar" autoDisplay="false">
+                <p:submenu label="File">
+                    <p:submenu label="Peserta Skripsi" styleClass="mnuitem" 
+                               style="font-size: 12px;" icon="ui-icon-person">
+                        <p:menuitem value="Cek Peserta Skripsi" styleClass="mnuitem" 
+                                    onclick="notSkp.show();"
+                                    icon="ui-icon-search"/>
+                        <p:menuitem value="Tambah Peserta" styleClass="mnuitem" 
+                                    onclick="addSkp.show();" 
+                                    actionListener="#{dataController.clearInsertPsrtSkp(actionEvent)}"
+                                    icon="ui-icon-plus"/>
+                        <p:menuitem value="Input Jadwal Sidang" styleClass="mnuitem"
+                                    onclick="addJadwalSidangSkripsi.show();"
+                                    icon="ui-icon-check"/>
+                        <p:menuitem value="Input Nilai Sidang"
+                                    onclick="addNilaiSidangSkripsi.show()"/>
+                    </p:submenu>
+                    <p:submenu label="Peserta Seminar" styleClass="mnuitem" 
+                               style="font-size: 12px;" icon="ui-icon-person">
+                        <p:menuitem value="Tambah Peserta" styleClass="mnuitem" 
+                                    onclick="addSem.show();" 
+                                    actionListener="#{dataController.clearInsertPsrtSem(actionEvent)}"
+                                    icon="ui-icon-plus"/>
+                        <p:menuitem value="Input Jadwal Sidang" styleClass="mnuitem" 
+                                    onclick="addJadwalSidangSeminar.show();"
+                                    icon="ui-icon-check"/>
+                        <p:menuitem value="Input Nilai Sidang"
+                                    onclick="addNilaiSidangSeminar.show()"/>
+                    </p:submenu>
+                </p:submenu>
+                <p:submenu label="Report">
+                    <p:submenu label="Surat Keputusan(SK)" styleClass="mnuitem" 
+                               style="font-size: 12px;" icon="ui-icon-folder-collapsed">
+                        <p:submenu label="SK Peserta" styleClass="mnuitem" 
+                                   style="font-size: 12px;" icon="ui-icon-folder-collapsed">
+                            <p:menuitem value="SK Peserta Seminar" icon="ui-icon-document" 
+                                        styleClass="mnuitem"/>
+                            <p:menuitem value="SK Peserta Skripsi" icon="ui-icon-document" 
+                                        styleClass="mnuitem"/>
+                            <p:menuitem value="SK Peserta Magang" icon="ui-icon-document" 
+                                        styleClass="mnuitem"/>
+                        </p:submenu>
+                        <p:submenu label="SK Pembimbing" styleClass="mnuitem" 
+                                   style="font-size: 12px;" icon="ui-icon-folder-collapsed">
+                            <p:menuitem value="SK Pembimbing Seminar" icon="ui-icon-document" 
+                                        styleClass="mnuitem"/>
+                            <p:menuitem value="SK Pembimbing Skripsi" icon="ui-icon-document" 
+                                        styleClass="mnuitem"/>
+                            <p:menuitem value="SK Pembimbing Magang" icon="ui-icon-document" 
+                                        styleClass="mnuitem"/>
+                        </p:submenu>
+                        <p:submenu label="SK Penguji" styleClass="mnuitem" 
+                                   style="font-size: 12px;" icon="ui-icon-folder-collapsed">
+                            <p:menuitem value="SK Penguji Seminar" icon="ui-icon-document" 
+                                        styleClass="mnuitem"/>
+                            <p:menuitem value="SK Penguji Skripsi" icon="ui-icon-document" 
+                                        styleClass="mnuitem"/>
+                            <p:menuitem value="SK Penguji Magang" icon="ui-icon-document" 
+                                        styleClass="mnuitem"/>
+                        </p:submenu>
+                        <p:submenu label="SK Lainnya" styleClass="mnuitem" 
+                                   style="font-size: 12px;" icon="ui-icon-folder-collapsed">
+                            <p:menuitem value="SK Petugas" icon="ui-icon-document" 
+                                        styleClass="mnuitem"/>
+                        </p:submenu>
+                    </p:submenu>
+                    <p:submenu label="Jadwal Sidang" styleClass="mnuitem" 
+                               style="font-size: 12px;" icon="ui-icon-folder-collapsed">
+                        <p:menuitem value="Sidang Seminar" icon="ui-icon-document" 
+                                    styleClass="mnuitem"/>
+                        <p:menuitem value="Sidang Skripsi" icon="ui-icon-document" 
+                                    styleClass="mnuitem"/>
+                        <p:menuitem value="Sidang Magang" icon="ui-icon-document" 
+                                    styleClass="mnuitem"/>
+                    </p:submenu>
+                    <p:submenu label="Frm Nilai Sidang" styleClass="mnuitem" 
+                               style="font-size: 12px;" icon="ui-icon-folder-collapsed">
+                        <p:menuitem value="Sidang Seminar" icon="ui-icon-document" 
+                                    styleClass="mnuitem"/>
+                        <p:menuitem value="Sidang Skripsi" icon="ui-icon-document" 
+                                    styleClass="mnuitem"/>
+                        <p:menuitem value="Sidang Magang" icon="ui-icon-document" 
+                                    styleClass="mnuitem"/>
+                    </p:submenu>
+                </p:submenu>
+                <p:submenu label="About">
+                    <p:menuitem value="Help" icon="ui-icon-help" styleClass="mnuitem"/>
+                </p:submenu>
+            </p:menubar>
+            <p:dock>
+                <p:menuitem value="Upload Peserta" icon="/style/image/user.png" 
+                            url="#" onclick="upload.show();"/>
+                <p:menuitem value="Data Seminar" icon="/style/image/file_1.png" 
+                            url="#" onclick="psrtSem.show();"/>
+                <p:menuitem value="Data Skripsi" icon="/style/image/file_2.png" 
+                            url="#" onclick="psrtSkp.show();"/>
+                <p:menuitem value="Data Magang" icon="/style/image/file_3.png" 
+                            url="#" onclick="psrtMgn.show();"/>
+            </p:dock>
+        </h:form>
+        <!--end menu item-->
+
+        <!--form upload peserta-->
+        <p:dialog header="Upload Data Peserta" 
+                  widgetVar="upload" draggable="true"
+                  showEffect="fade" hideEffect="fade" width="650" height="200" 
+                  resizable="false">
+
+            <h:outputText value="Pilih file :" />
+            <h:form enctype="multipart/form-data">
+                <p:growl id="pesan" showDetail="true" sticky="true"/>
+                <p:fileUpload mode="advanced"
+                              update="pesan"
+                              sizeLimit="2097152"
+                              multiple="true"
+                              allowTypes="/(\.|\/)(xls|xlsx)$/"
+                              fileUploadListener="#{uploadPeserta.handleUpload}"/>
+                <h:panelGrid columns="2" >
+                    <h:outputText value="Kategori Data: " />
+                    <p:selectOneMenu style="width: 100%;" 
+                                     value="#{uploadPeserta.kateg}"
+                                     required="true"
+                                     requiredMessage="Kategori Data Harus Diisi"
+                                     id="kategori">
+                        <f:selectItem itemLabel="-- Select One --" itemValue="kosong" />  
+                        <f:selectItem itemLabel="Data Magang" itemValue="magang"/>  
+                        <f:selectItem itemLabel="Data Seminar" itemValue="seminar" />  
+                        <f:selectItem itemLabel="Data Skripsi" itemValue="skripsi" />
+                    </p:selectOneMenu>
+
+                    <h:outputText value="Nama File: " />
+                    <p:inputText value="#{uploadPeserta.file}" 
+                                 required="true"
+                                 requiredMessage="Nama File Harus diisi"
+                                 id="file"/>
+
+                    <p:commandButton value="Insert" 
+                                     actionListener="#{uploadPeserta.handleReadFile}" 
+                                     update="pesan" />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+        <!--end form upload peserta-->
+
+        <!--form display peserta seminar dan daftar sidang seminar-->
+        <p:dialog header="Data Peserta Seminar" 
+                  widgetVar="psrtSem" draggable="true"
+                  showEffect="fade" hideEffect="fade" width="1000" height="500" 
+                  resizable="true">
+            <h:form id="formsem">
+                <p:growl id="growlSaveSidangSeminar" showDetail="true" sticky="true"/>
+                <p:dataTable id="tablesem" paginator="true" rows="20" 
+                             sortMode="multiple" var="mhssem" 
+                             resizableColumns="true" 
+                             paginatorPosition="bottom" 
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} 
+                             {PreviousPageLink} {PageLinks} {NextPageLink} 
+                             {LastPageLink} {RowsPerPageDropdown}" 
+                             rowsPerPageTemplate="5,10,20"
+                             value="#{tablePeserta.modelTblSeminar}"
+                             widgetVar="tabelSeminar"
+                             filteredValue="#{tablePeserta.filteredSeminar}"
+                             selection="#{tablePeserta.arrayPsrtSem}"
+                             emptyMessage="Data tidak ditemukan">
+                    <f:facet name="header">
+                        Peserta Seminar
+                    </f:facet>
+                    <p:column id="kolomNimSeminar" sortBy="#{mhssem.nim}" 
+                              headerText="NIM"
+                              filterBy="#{mhssem.nim}" >  
+                        <h:outputText value="#{mhssem.nim}" />  
+                    </p:column>
+                    <p:column id="kolomNamaSeminar" sortBy="#{mhssem.nama}" 
+                              headerText="Nama"
+                              filterBy="#{mhssem.nama}">  
+                        <h:outputText value="#{mhssem.nama}" />  
+                    </p:column>
+                    <p:column sortBy="#{mhssem.nama}" headerText="Judul Karya">  
+                        <h:outputText value="#{mhssem.judul}" />  
+                    </p:column>
+                    <p:column headerText="Kode Dosen">  
+                        <h:outputText value="#{mhssem.nidn}" />  
+                    </p:column>
+                    <p:column sortBy="#{mhssem.nama}" 
+                              headerText="Dosen Pembimbing"
+                              filterBy="#{mhssem.dosen}">  
+                        <h:outputText value="#{mhssem.dosen}" />  
+                    </p:column>
+                    <p:column headerText="Action" style="width: 8%;" exportable="false">  
+                        <p:commandButton id="selectButton" oncomplete="editSem.show()" 
+                                         icon="ui-icon-pencil" title="Edit" 
+                                         update="tablesem,:dlgpsrtsemedit" 
+                                         actionListener="#{dataController.getValPsertaSem(mhssem.nim)}">
+                        </p:commandButton>
+                        <p:commandButton id="deleteButton" oncomplete="delSem.show()" 
+                                         icon="ui-icon-trash" title="Delete" >
+                        </p:commandButton>
+                    </p:column>
+                    <p:column selectionMode="multiple" style="width:2%" exportable="false"/>
+                    <f:facet name="footer">
+                        <p:commandButton value="Save Sidang" icon="ui-icon-disk"
+                                         update=":formsem:growlSaveSidangSeminar,
+                                         :frmInputJadwalSidangSeminar:tabelInputJadwalSeminar,
+                                         :formInputNilaiSidangSeminar:tabelInputNilaiSeminar"
+                                         actionListener="#{tablePeserta.saveSidang()}"/>
+                        <h:commandButton value="Cetak Laporan">   
+                            <p:dataExporter type="pdf" target="tablesem" fileName="Peserta_Seminar" pageOnly="true"/>  
+                        </h:commandButton>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+
+        <!--dialog delete peserta seminar-->
+        <h:form id="delformsem">
+            <p:confirmDialog header="Konfirmasi" 
+                             widgetVar="delSem" 
+                             message="Anda Yakin Ingin Menghapus Data Ini?"
+                             severity="alert"
+                             showEffect="fade" hideEffect="fade" >
+                <p:growl id="growldelsem" showDetail="true" sticky="true"/>
+                <p:commandButton value="Tidak" oncomplete="delSkp.hide()"
+                                 icon="ui-icon-circle-close"
+                                 style="float: right; width: 25%;"/>
+                <p:commandButton value="Ya" oncomplete="delSkp.hide()" 
+                                 actionListener="#{dataController.deletePsertaSem()}"
+                                 style="float: right; width: 25%;"
+                                 update=":formsem:tablesem, growldelsem"
+                                 icon="ui-icon-circle-check"/>
+            </p:confirmDialog>
+        </h:form>
+
+        <!--form display peserta skripsi dan daftar sidang skripsi-->
+        <p:dialog header="Data Peserta Skripsi" 
+                  widgetVar="psrtSkp" draggable="true"
+                  showEffect="fade" hideEffect="fade" width="1000" height="500" 
+                  resizable="true">
+            <h:form id="formskp">
+                <p:dataTable id="tabelskp" paginator="true" rows="20" 
+                             sortMode="multiple" var="mhsskp" 
+                             resizableColumns="true" liveResize="true" 
+                             paginatorPosition="bottom" 
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} 
+                             {PreviousPageLink} {PageLinks} {NextPageLink} 
+                             {LastPageLink} {RowsPerPageDropdown}" 
+                             rowsPerPageTemplate="5,10,20"
+                             value="#{tablePesertaSkrip.modelPesertaSkrip}"
+                             selection="#{tablePesertaSkrip.arraySkrip}"
+                             emptyMessage="Data tidak ditemukan">
+                    <f:facet name="header">
+                        Peserta Skripsi
+                    </f:facet>
+                    <p:column id="kolomNimSkripsi" sortBy="#{mhsskp.nim}" 
+                              headerText="NIM"
+                              filterBy="#{mhsskp.nim}">  
+                        <h:outputText value="#{mhsskp.nim}" />  
+                    </p:column>
+                    <p:column id="kolomNamaSkripsi" sortBy="#{mhsskp.nama}" 
+                              headerText="Nama"
+                              filterBy="#{mhsskp.nama}" filterMatchMode="contains">  
+                        <h:outputText value="#{mhsskp.nama}" />  
+                    </p:column>
+                    <p:column sortBy="#{mhsskp.judul}" headerText="Judul Karya">  
+                        <h:outputText value="#{mhsskp.judul}" />  
+                    </p:column>
+                    <p:column sortBy="#{mhskp.dosen}" headerText="Dosen Pembimbing">  
+                        <h:outputText value="#{mhsskp.dosen}" />  
+                    </p:column>
+                    <p:column headerText="Action" style="width: 8%;" exportable="false">  
+                        <p:commandButton id="selectButton" oncomplete="editSkp.show()" 
+                                         icon="ui-icon-pencil" title="Edit" 
+                                         update="tabelskp,:dlgpsrtskpedit" 
+                                         actionListener="#{dataController.getValPsertaSkp(mhsskp.nim)}">
+                        </p:commandButton>
+                        <p:commandButton id="deleteButton" oncomplete="delSkp.show()" 
+                                         icon="ui-icon-trash" title="Delete" >
+                        </p:commandButton>
+                    </p:column>
+                    <p:column selectionMode="multiple" style="width:2%" />
+                    <f:facet name="footer">
+                        <p:commandButton value="Save Sidang" icon="ui-icon-disk"
+                                         update=":formsem:growlSaveSidangSeminar,
+                                         :frmInputJadwalSidangSkripsi:tabelInputJadwalSkripsi,
+                                         :formInputNilaiSidangSkripsi:tabelInputNilaiSkripsi"
+                                         actionListener="#{tablePesertaSkrip.saveSidang()}"/>
+                        <h:commandButton value="Cetak Laporan">   
+                            <p:dataExporter type="pdf" target="tabelskp" fileName="Peserta_Skripsi" pageOnly="true"/>  
+                        </h:commandButton>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+
+        <!--dialog konfirmasi delete peserta skripsi-->
+        <h:form id="delformskp">
+            <p:confirmDialog header="Konfirmasi" 
+                             widgetVar="delSkp" 
+                             message="Anda Yakin Ingin Menghapus Data Ini?"
+                             severity="alert"
+                             showEffect="fade" hideEffect="fade" >
+                <p:growl id="growldelskp" showDetail="true" sticky="true"/>
+                <p:commandButton value="Tidak" oncomplete="delSkp.hide()"
+                                 icon="ui-icon-circle-close"
+                                 style="float: right; width: 25%;"/>
+                <p:commandButton value="Ya" oncomplete="delSkp.hide()" 
+                                 actionListener="#{dataController.deletePsertaSkp()}"
+                                 style="float: right; width: 25%;"
+                                 update=":formskp:tabelskp, growldelskp"
+                                 icon="ui-icon-circle-check"/>
+            </p:confirmDialog>
+        </h:form>
+        <!--end form peserta skripsi-->
+
+        <!--form display peserta magang dan daftar sidang magang-->
+        <p:dialog header="Data Peserta Magang" 
+                  widgetVar="psrtMgn" draggable="true"
+                  showEffect="fade" hideEffect="fade" width="1000" height="500" 
+                  resizable="true">
+            <h:form id="formmg">
+                <p:dataTable id="tablemg" paginator="true" rows="20" 
+                             sortMode="multiple" var="mhsmg" 
+                             resizableColumns="true" liveResize="true" 
+                             paginatorPosition="bottom" 
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} 
+                             {PreviousPageLink} {PageLinks} {NextPageLink} 
+                             {LastPageLink} {RowsPerPageDropdown}" 
+                             rowsPerPageTemplate="5,10,20"
+                             value="#{tablePeserta.psrtmg}"
+                             emptyMessage="Data tidak ditemukan">
+                    <f:facet name="header">
+                        Peserta Magang
+                    </f:facet>
+                    <p:column id="kolomNimMagang" 
+                              sortBy="#{mhsmg.nim}" 
+                              headerText="NIM"
+                              filterBy="#{mhsmg.nim}">  
+                        <h:outputText value="#{mhsmg.nim}" />  
+                    </p:column>
+                    <p:column id="kolomNamaMagang" 
+                              sortBy="#{mhsmg.nama}" 
+                              headerText="Nama"
+                              filterBy="#{mhsmg.nama}">  
+                        <h:outputText value="#{mhsmg.nama}" />  
+                    </p:column>
+                    <p:column headerText="Action" style="width: 8%;">  
+                        <p:commandButton id="selectButton" 
+                                         oncomplete="carDialog.show()" 
+                                         icon="ui-icon-pencil" title="Edit" >
+                        </p:commandButton>
+                        <p:commandButton id="deleteButton" 
+                                         oncomplete="carDialog.show()" 
+                                         icon="ui-icon-trash" title="Delete" >
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+        <!--end form dialog peserta magang-->
+
+        <!--form untuk menampilkan peserta yang tidak masuk dlm skripsi-->
+        <p:dialog header="Data Peserta Yang Tidak Masuk di Skripsi"
+                  widgetVar="notSkp" 
+                  showEffect="fade" 
+                  hideEffect="fade" width="400" height="300" resizable="true">
+            <p:dataTable id="notskp" paginator="true" rows="20" 
+                         sortMode="multiple" var="mhsskp" 
+                         value="#{tablePesertaSkrip.getnotSkrip()}">
+                <f:facet name="header">
+                    Peserta Belum Masuk Skripsi
+                </f:facet>
+                <p:column sortBy="#{mhsskp.nim}" headerText="NIM">  
+                    <h:outputText value="#{mhsskp.nim}" />  
+                </p:column>
+                <p:column sortBy="#{mhsskp.nama}" headerText="Nama">  
+                    <h:outputText value="#{mhsskp.nama}" />  
+                </p:column>
+            </p:dataTable>
+        </p:dialog>
+
+        <!--form input peserta skripsi-->
+        <p:dialog header="Input Peserta Skripsi"
+                  id="dlgpsrtskp"
+                  widgetVar="addSkp" showEffect="fade" hideEffect="fade" 
+                  width="400" height="300" resizable="true" modal="true">
+            <h:form>
+                <p:growl id="growl" showDetail="true" sticky="true"/>
+                <h:panelGrid columns="3" style="width: 100%;">
+                    <h:outputLabel value="NIM"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputText value="#{dataController.psrtSkp.nim}"
+                                 style="width: 100%;">
+                    </p:inputText>
+                    <h:outputLabel value="Nama"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputText value="#{dataController.psrtSkp.nama}"
+                                 style="width: 100%;"/>
+                    <h:outputLabel value="Judul Karya"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputTextarea rows="6" cols="33"
+                                     value="#{dataController.pemSkp.judul}"
+                                     style="width: 100%;"/>
+                    <h:outputLabel value="Kode Dosen"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputText value="#{dataController.pemSkp.nidn}"
+                                 style="width: 100%;"/>
+                    <h:outputLabel value="Dosen Pembimbing"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputText style="width: 100%;"/>
+                </h:panelGrid>
+                <p:commandButton value="Save" 
+                                 actionListener="#{dataController.insertPsrtSkp}"
+                                 oncomplete="addSkp.hide();"
+                                 icon="ui-icon-disk"
+                                 update=":formskp,growl,:dlgpsrtskp"/>
+                <p:commandButton value="Cancel" 
+                                 oncomplete="addSkp.hide();"
+                                 icon="ui-icon-close"/>
+            </h:form>
+        </p:dialog>
+
+        <!--form edit peserta skripsi-->
+        <p:dialog header="Edit Peserta Skripsi"
+                  id="dlgpsrtskpedit"
+                  widgetVar="editSkp" showEffect="fade" hideEffect="fade" 
+                  width="400" height="300" resizable="true" modal="true">
+            <h:form>
+                <p:growl id="growleditskp" showDetail="true" sticky="true"/>
+                <h:panelGrid columns="3" >
+                    <h:outputLabel value="NIM"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputText value="#{dataController.psrtSkp.nim}"
+                                 style="width: 100%;">
+                    </p:inputText>
+                    <h:outputLabel value="Nama"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputText value="#{dataController.psrtSkp.nama}"
+                                 style="width: 100%;"/>
+                    <h:outputLabel value="Judul Karya"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputTextarea rows="6" cols="33"
+                                     value="#{dataController.pemSkp.judul}"
+                                     style="width: 100%;"/>
+                    <h:outputLabel value="Kode Dosen"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputText value="#{dataController.pemSkp.nidn}"
+                                 style="width: 100%;"/>
+                    <h:outputLabel value="Dosen Pembimbing"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputText style="width: 100%;"/>
+                </h:panelGrid>
+                <p:commandButton value="Edit" 
+                                 actionListener="#{dataController.editPsertaSkp()}"
+                                 oncomplete="editSkp.hide();"
+                                 icon="ui-icon-disk"
+                                 update=":formskp:tabelskp,growleditskp,:dlgpsrtskpedit"/>
+                <p:commandButton value="Cancel" 
+                                 oncomplete="editSkp.hide();"
+                                 icon="ui-icon-close"/>
+            </h:form>
+        </p:dialog>
+
+        <!--form input peserta seminar-->
+        <p:dialog header="Input Peserta Seminar"
+                  id="dlgpsrtsem"
+                  widgetVar="addSem" showEffect="fade" hideEffect="fade" 
+                  width="400" height="300" resizable="true" modal="true">
+            <h:form>
+                <p:growl id="growl" showDetail="true" sticky="true"/>
+                <h:panelGrid columns="3" style="width: 100%;">
+                    <h:outputLabel value="NIM"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputText value="#{dataController.psrtSem.nim}"
+                                 style="width: 100%;">
+                    </p:inputText>
+                    <h:outputLabel value="Nama"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputText value="#{dataController.psrtSem.nama}"
+                                 style="width: 100%;"/>
+                    <h:outputLabel value="Judul Karya"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputTextarea rows="6" cols="33"
+                                     value="#{dataController.pemSem.judul}"
+                                     style="width: 100%;"/>
+                    <h:outputLabel value="Kode Dosen"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputText value="#{dataController.pemSem.nidn}"
+                                 style="width: 100%;"/>
+                    <h:outputLabel value="Dosen Pembimbing"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputText style="width: 100%;"/>
+                </h:panelGrid>
+                <p:commandButton value="Save" 
+                                 actionListener="#{dataController.insertPsrtSem}"
+                                 oncomplete="addSem.hide();"
+                                 icon="ui-icon-disk"
+                                 update=":formskp,growl,:dlgpsrtskp"/>
+                <p:commandButton value="Cancel" 
+                                 oncomplete="addSem.hide();"
+                                 icon="ui-icon-close"/>
+            </h:form>
+        </p:dialog>
+
+        <!--form edit peserta seminar-->
+        <p:dialog header="Edit Peserta Seminar"
+                  id="dlgpsrtsemedit"
+                  widgetVar="editSem" showEffect="fade" hideEffect="fade" 
+                  width="400" height="300" resizable="true" modal="true">
+            <h:form>
+                <p:growl id="growleditskp" showDetail="true" sticky="true"/>
+                <h:panelGrid columns="3" >
+                    <h:outputLabel value="NIM"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputText value="#{dataController.psrtSem.nim}"
+                                 style="width: 100%;">
+                    </p:inputText>
+                    <h:outputLabel value="Nama"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputText value="#{dataController.psrtSem.nama}"
+                                 style="width: 100%;"/>
+                    <h:outputLabel value="Judul Karya"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputTextarea rows="6" cols="33"
+                                     value="#{dataController.pemSem.judul}"
+                                     style="width: 100%;"/>
+                    <h:outputLabel value="Kode Dosen"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputText value="#{dataController.pemSem.nidn}"
+                                 style="width: 100%;"/>
+                    <h:outputLabel value="Dosen Pembimbing"/>
+                    <h:outputLabel value=":"/>
+                    <p:inputText style="width: 100%;"/>
+                </h:panelGrid>
+                <p:commandButton value="Edit" 
+                                 actionListener="#{dataController.editPsertaSem()}"
+                                 oncomplete="editSem.hide();"
+                                 icon="ui-icon-disk"
+                                 update=":formskp:tabelskp,growleditskp,:dlgpsrtskpedit"/>
+                <p:commandButton value="Cancel" 
+                                 oncomplete="editSem.hide();"
+                                 icon="ui-icon-close"/>
+            </h:form>
+        </p:dialog>
+
+        <!--untuk input jadwal sidang seminar-->
+        <p:dialog widgetVar="addJadwalSidangSeminar"
+                  header="Input Jadwal Sidang Seminar"
+                  showEffect="fade" hideEffect="fade" 
+                  width="1300" height="500" resizable="true" 
+                  appendToBody="true"
+                  >
+            <h:form id="frmInputJadwalSidangSeminar">
+                <p:growl id="messages" showDetail="true"/>
+                <p:dataTable id="tabelInputJadwalSeminar" 
+                             paginator="true" rows="20" 
+                             sortMode="multiple" var="jadwalSeminar" 
+                             resizableColumns="true" liveResize="true" 
+                             paginatorPosition="bottom" 
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} 
+                             {PreviousPageLink} {PageLinks} {NextPageLink} 
+                             {LastPageLink} {RowsPerPageDropdown}" 
+                             rowsPerPageTemplate="5,10,20"
+                             emptyMessage="Data tidak ditemukan"
+                             editable="true"
+                             editMode="cell"
+                             value="#{dataController.jadwalSeminar}">
+                    <p:ajax event="cellEdit" listener="#{dataController.saveJadwal}" update=":frmInputJadwalSidangSeminar:messages" /> 
+                    <f:facet name="header">
+                        Tabel Input Jadwal Sidang Seminar
+                    </f:facet>
+                    <p:column headerText="Nim" >
+                        <h:outputText value="#{jadwalSeminar.nim}"/>
+                    </p:column>
+                    <p:column headerText="Nama">
+                        <h:outputText value="#{jadwalSeminar.nama}"/>
+                    </p:column>
+                    <p:column headerText="Judul Karya">
+                        <h:outputText value="#{jadwalSeminar.judul}"/>
+                    </p:column>
+                    <p:column headerText="Dosen Pembimbing">
+                        <h:outputText value="#{jadwalSeminar.dosen}"/>
+                    </p:column>
+                    <p:column headerText="Hari">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{jadwalSeminar.hari}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <h:selectOneMenu value="#{dataController.jadwalSeminarDAO.hari}" style="width:100%">  
+                                    <f:selectItems value="#{tablePeserta.hari}" var="hari" itemLabel="#{hari}" itemValue="#{hari}" />  
+                                </h:selectOneMenu> 
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Tanggal">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{jadwalSeminar.tanggal}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:calendar value="#{dataController.jadwalSeminarDAO.tanggal}"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Jam">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{jadwalSeminar.jam}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <h:selectOneMenu value="#{dataController.jadwalSeminarDAO.jam}" style="width:100%">  
+                                    <f:selectItems value="#{tablePeserta.jam}" var="jam" itemLabel="#{jam}" itemValue="#{jam}" />  
+                                </h:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Ruangan">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{jadwalSeminar.noRuang}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <h:selectOneMenu value="#{dataController.jadwalSeminarDAO.noRuang}" style="width:100%">  
+                                    <f:selectItems value="#{tablePeserta.ruang}" var="ruang" itemLabel="#{ruang}" itemValue="#{ruang}" />  
+                                </h:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Penguji">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{jadwalSeminar.penguji}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{dataController.jadwalSeminarDAO.nidn}"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Petugas">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{jadwalSeminar.petugas}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{dataController.jadwalSeminarDAO.petugas}"/>
+                            </f:facet>
+                        </p:cellEditor>    
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+
+        <!--untuk input nilai sidang seminar-->
+        <p:dialog widgetVar="addNilaiSidangSeminar"
+                  header="Input Jadwal Sidang Seminar"
+                  showEffect="fade" hideEffect="fade" 
+                  width="800" height="300" resizable="true" 
+                  appendToBody="true"
+                  >
+            <h:form id="formInputNilaiSidangSeminar">
+                <p:growl id="growl" showDetail="true" sticky="true"/>
+                <p:dataTable id="tabelInputNilaiSeminar" 
+                             paginator="true" rows="20" 
+                             sortMode="multiple" var="jadwalSeminar" 
+                             resizableColumns="true" liveResize="true" 
+                             paginatorPosition="bottom" 
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} 
+                             {PreviousPageLink} {PageLinks} {NextPageLink} 
+                             {LastPageLink} {RowsPerPageDropdown}" 
+                             rowsPerPageTemplate="5,10,20"
+                             emptyMessage="Data tidak ditemukan"
+                             editable="true"
+                             editMode="cell"
+                             value="#{dataController.jadwalSeminar}">
+                    <p:ajax event="cellEdit" listener="#{dataController.saveNilai}" update=":formInputNilaiSidangSeminar:growl" /> 
+                    <f:facet name="header">
+                        Tabel Input Jadwal Sidang Seminar
+                    </f:facet>
+                    <p:column headerText="Nim" >
+                        <h:outputText value="#{jadwalSeminar.nim}"/>
+                    </p:column>
+                    <p:column headerText="Nama">
+                        <h:outputText value="#{jadwalSeminar.nama}"/>
+                    </p:column>
+                    <p:column headerText="Nilai">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{dataController.nilaiSeminar.nilai}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{dataController.nilaiSeminar.nilai}"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+        
+        <!--untuk input jadwal sidang seminar-->
+        <p:dialog widgetVar="addJadwalSidangSkripsi"
+                  header="Input Jadwal Sidang Skripsi"
+                  showEffect="fade" hideEffect="fade" 
+                  width="1300" height="500" resizable="true" 
+                  appendToBody="true"
+                  >
+            <h:form id="frmInputJadwalSidangSkripsi">
+                <p:growl id="messages" showDetail="true"/>
+                <p:dataTable id="tabelInputJadwalSkripsi" 
+                             paginator="true" rows="20" 
+                             sortMode="multiple" var="jadwalSkripsi" 
+                             resizableColumns="true" liveResize="true" 
+                             paginatorPosition="bottom" 
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} 
+                             {PreviousPageLink} {PageLinks} {NextPageLink} 
+                             {LastPageLink} {RowsPerPageDropdown}" 
+                             rowsPerPageTemplate="5,10,20"
+                             emptyMessage="Data tidak ditemukan"
+                             editable="true"
+                             value="#{dataController.jadwalSkripsi}">
+                    <p:ajax event="rowEdit" listener="#{dataController.saveJadwal()}" update=":frmInputJadwalSidangSeminar:messages" />  
+                    <p:ajax event="rowEditCancel" listener="#{dataController.cancelJadwal()}"/>
+                    <f:facet name="header">
+                        Tabel Input Jadwal Sidang Seminar
+                    </f:facet>
+                    <p:column headerText="Nim" >
+                        <h:outputText value="#{jadwalSkripsi.nim}"/>
+                    </p:column>
+                    <p:column headerText="Nama">
+                        <h:outputText value="#{jadwalSkripsi.nama}"/>
+                    </p:column>
+                    <p:column headerText="Judul Karya">
+                        <h:outputText value="#{jadwalSkripsi.judul}"/>
+                    </p:column>
+                    <p:column headerText="Dosen Pembimbing">
+                        <h:outputText value="#{jadwalSkripsi.dosen}"/>
+                    </p:column>
+                    <p:column headerText="Hari">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{jadwalSkripsi.hari}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{dataController.jadwalSkripsiDAO.hari}"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Tanggal">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{jadwalSkripsi.tanggal}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:calendar value="#{dataController.jadwalSkripsiDAO.tanggal}"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Jam">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{jadwalSkripsi.jam}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{dataController.jadwalSkripsiDAO.jam}"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Ruangan">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{jadwalSkripsi.noRuang}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{dataController.jadwalSkripsiDAO.noRuang}"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Penguji1">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{jadwalSkripsi.penguji1}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{dataController.jadwalSkripsiDAO.penguji1}"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Penguji2">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{jadwalSkripsi.penguji2}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{dataController.jadwalSkripsiDAO.penguji2}"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Penguji3">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{jadwalSkripsi.penguji3}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{dataController.jadwalSkripsiDAO.penguji3}"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Petugas">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{jadwalSkripsi.petugas}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{dataController.jadwalSkripsiDAO.petugas}"/>
+                            </f:facet>
+                        </p:cellEditor>    
+                    </p:column>
+                    <p:column style="width:6%">  
+                        <p:rowEditor />  
+                    </p:column>  
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+        
+        <!--untuk input nilai sidang seminar-->
+        <p:dialog widgetVar="addNilaiSidangSkripsi"
+                  header="Input Jadwal Sidang Skripsi"
+                  showEffect="fade" hideEffect="fade" 
+                  width="800" height="300" resizable="true" 
+                  appendToBody="true"
+                  >
+            <h:form id="formInputNilaiSidangSkripsi">
+                <p:growl id="growl" showDetail="true" sticky="true"/>
+                <p:dataTable id="tabelInputNilaiSkripsi" 
+                             paginator="true" rows="20" 
+                             sortMode="multiple" var="jadwalSkripsi" 
+                             resizableColumns="true" liveResize="true" 
+                             paginatorPosition="bottom" 
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} 
+                             {PreviousPageLink} {PageLinks} {NextPageLink} 
+                             {LastPageLink} {RowsPerPageDropdown}" 
+                             rowsPerPageTemplate="5,10,20"
+                             emptyMessage="Data tidak ditemukan"
+                             editable="true"
+                             editMode="cell"
+                             value="#{dataController.getJadwalSkripsi()}">
+                    <p:ajax event="cellEdit" listener="#{dataController.saveNilai}" update=":formInputNilaiSidangSeminar:growl" /> 
+                    <f:facet name="header">
+                        Tabel Input Jadwal Sidang Seminar
+                    </f:facet>
+                    <p:column headerText="Nim" >
+                        <h:outputText value="#{jadwalSkripsi.nim}"/>
+                    </p:column>
+                    <p:column headerText="Nama">
+                        <h:outputText value="#{jadwalSkripsi.nama}"/>
+                    </p:column>
+                    <p:column headerText="Nilai1">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{dataController.nilaiSkripsi.nilai1}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{dataController.nilaiSkripsi.nilai1}"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Nilai2">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{dataController.nilaiSkripsi.nilai2}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{dataController.nilaiSkripsi.nilai2}"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Nilai3">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{dataController.nilaiSkripsi.nilai3}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{dataController.nilaiSkripsi.nilai3}"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>
+

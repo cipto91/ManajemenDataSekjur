@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="org.cipto.hibernate.PesertaSeminar" table="mhs_seminar">
+        <id name="nim" type="string" column="NIM"></id>
+        <property name="nama">
+            <column name="NAMA"/>
+        </property>
+    </class>
+    <class name="org.cipto.hibernate.PesertaSkripsi" table="mhs_skripsi">
+        <id name="nim" type="string" column="NIM"></id>
+        <property name="nama">
+            <column name="NAMA"/>
+        </property>
+    </class>
+    <class name="org.cipto.hibernate.PesertaMagang" table="mhs_magang">
+        <id name="nim" type="string" column="NIM"></id>
+        <property name="nama">
+            <column name="NAMA"/>
+        </property>
+    </class>
+    <class name="org.cipto.hibernate.NotSkrip" table="v_notskrip">
+        <id name="nim" type="string" column="NIM"></id>
+        <property name="nama">
+            <column name="NAMA"/>
+        </property>
+    </class>
+    <class name="org.cipto.hibernate.PembimbingSeminar" table="judul_seminar">
+       <id name="nim" type="string" column="NIM"></id>
+        <property name="nidn">
+            <column name="NIDN"/>
+        </property>
+        <property name="judul">
+            <column name="JUDUL"/>
+        </property>
+        <property name="kdTahun">
+            <column name="kd_tahun"/>
+        </property>
+        <property name="isSidang" type="boolean">
+            <column name="is_sidang"/>
+        </property>
+    </class>
+    <class name="org.cipto.hibernate.PembimbingSkripsi" table="judul_skripsi">
+        <id name="nim" type="string" column="NIM"></id>
+        <property name="nidn">
+            <column name="NIDN"/>
+        </property>
+        <property name="judul">
+            <column name="JUDUL"/>
+        </property>
+        <property name="kdTahun">
+            <column name="kd_tahun"/>
+        </property>
+        <property name="isSidang" type="boolean">
+            <column name="is_sidang"/>
+        </property>
+    </class>
+    <class name="org.cipto.hibernate.PembimbingMagang" table="judul_magang">
+        <id name="nim" type="string" column="NIM"></id>
+        <property name="nidn">
+            <column name="NIDN"/>
+        </property>
+        <property name="judul">
+            <column name="JUDUL"/>
+        </property>
+        <property name="kdTahun">
+            <column name="kd_tahun"/>
+        </property>
+        <property name="isSidang" type="boolean">
+            <column name="is_sidang"/>
+        </property>
+    </class>
+    <class name="org.cipto.hibernate.DosenPemb" table="dsn_pemb">
+        <id name="nidn" type="string" column="NIDN"></id>
+        <property name="nama">
+            <column name="NAMA"/>
+        </property>
+    </class>
+    <class name="org.cipto.hibernate.Seminar" table="v_seminar">
+        <id name="nim" type="string" column="NIM"></id>
+        <property name="nama">
+            <column name="NAMA"/>
+        </property>
+        <property name="judul">
+            <column name="judul"/>
+        </property>
+        <property name="dosen">
+            <column name="DOSEN"/>
+        </property>
+        <property name="nidn">
+            <column name="nidn"/>
+        </property>
+    </class>
+    <class name="org.cipto.hibernate.Skripsi" table="v_skripsi">
+        <id name="nim" type="string" column="NIM"></id>
+        <property name="nama">
+            <column name="NAMA"/>
+        </property>
+        <property name="judul">
+            <column name="judul"/>
+        </property>
+        <property name="dosen">
+            <column name="DOSEN"/>
+        </property>
+        <property name="nidn">
+            <column name="nidn"/>
+        </property>
+    </class>
+    <class name="org.cipto.hibernate.JadwalSeminar" table="v_jadwal_seminar">
+        <id name="nim" type="string" column="nim"></id>
+        <property name="sid">
+            <column name="sid"/>
+        </property>
+        <property name="nama">
+            <column name="nama"/>
+        </property>
+        <property name="judul">
+            <column name="judul"/>
+        </property>
+        <property name="dosen">
+            <column name="pembimbing"/>
+        </property>
+        <property name="hari">
+            <column name="hari"/>
+        </property>
+        <property name="tanggal">
+            <column name="tanggal"/>
+        </property>
+        <property name="jam">
+            <column name="jam"/>
+        </property>
+        <property name="noRuang">
+            <column name="noRuang"/>
+        </property>
+        <property name="penguji">
+            <column name="penguji"/>
+        </property>
+        <property name="petugas">
+            <column name="petugas"/>
+        </property>
+    </class>
+    <class name="org.cipto.hibernate.JadwalSeminarDAO" table="jadwal_sidang_seminar">
+        <id name="sid" type="string" column="sid"></id>
+        <property name="nim">
+            <column name="nim"/>
+        </property>
+        <property name="hari" type="string">
+            <column name="hari"/>
+        </property>
+        <property name="tanggal" type="date">
+            <column name="tanggal"/>
+        </property>
+        <property name="jam" type="string">
+            <column name="jam"/>
+        </property>
+        <property name="noRuang" type="integer">
+            <column name="noRuang"/>
+        </property>
+        <property name="nidn" type="string">
+            <column name="nidn"/>
+        </property>
+        <property name="petugas" type="string">
+            <column name="petugas"/>
+        </property>
+    </class>
+    <class name="org.cipto.hibernate.NilaiSeminar" table="nilai_sidang_smnr">
+        <id name="id" type="string" column="id"></id>
+        <property name="nim">
+            <column name="nim"/>
+        </property>
+        <property name="nilai">
+            <column name="nilaiuji1"/>
+        </property>
+    </class>
+     <class name="org.cipto.hibernate.JadwalSkripsi" table="v_jadwal_skripsi">
+        <id name="nim" type="string" column="nim"></id>
+        <property name="sid">
+            <column name="sid"/>
+        </property>
+        <property name="nama">
+            <column name="nama"/>
+        </property>
+        <property name="judul">
+            <column name="judul"/>
+        </property>
+        <property name="dosen">
+            <column name="pembimbing"/>
+        </property>
+        <property name="hari">
+            <column name="hari"/>
+        </property>
+        <property name="tanggal">
+            <column name="tanggal"/>
+        </property>
+        <property name="jam">
+            <column name="jam"/>
+        </property>
+        <property name="noRuang">
+            <column name="no_ruang"/>
+        </property>
+        <property name="penguji1">
+            <column name="penguji1"/>
+        </property>
+        <property name="penguji2">
+            <column name="penguji2"/>
+        </property>
+        <property name="penguji3">
+            <column name="penguji3"/>
+        </property>
+        <property name="petugas">
+            <column name="petugas"/>
+        </property>
+    </class>
+    <class name="org.cipto.hibernate.JadwalSkripsiDAO" table="jadwal_sidang_skripsi">
+        <id name="sid" type="string" column="sid"></id>
+        <property name="nim">
+            <column name="nim"/>
+        </property>
+        <property name="hari" type="string">
+            <column name="hari"/>
+        </property>
+        <property name="tanggal" type="date">
+            <column name="tanggal"/>
+        </property>
+        <property name="jam" type="string">
+            <column name="jam"/>
+        </property>
+        <property name="noRuang" type="integer">
+            <column name="no_ruang"/>
+        </property>
+        <property name="penguji1" type="string">
+            <column name="penguji1"/>
+        </property>
+        <property name="penguji2" type="string">
+            <column name="penguji2"/>
+        </property>
+        <property name="penguji3" type="string">
+            <column name="penguji3"/>
+        </property>
+        <property name="petugas" type="string">
+            <column name="petugas"/>
+        </property>
+    </class>
+    <class name="org.cipto.hibernate.NilaiSkripsi" table="nilai_sidang_skp">
+        <id name="id" type="string" column="id"></id>
+        <property name="nim">
+            <column name="nim"/>
+        </property>
+        <property name="nilai1">
+            <column name="nilaiuji1"/>
+        </property>
+        <property name="nilai2">
+            <column name="nilaiuji2"/>
+        </property>
+        <property name="nilai3">
+            <column name="nilaiuji3"/>
+        </property>
+    </class>
+</hibernate-mapping>
