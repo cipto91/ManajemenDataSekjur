@@ -11,18 +11,19 @@ package org.cipto.hibernate;
 public class NilaiSkripsi {
     private String id;
     private String nim;
-    private Integer nilai1,nilai2,nilai3;
+    private Integer nilai1,nilai2,nilai3,presentasi;
     public NilaiSkripsi(){
         
     }
     
     public NilaiSkripsi(String id, String nim, Integer nilai1, 
-            Integer nilai2, Integer nilai3){
+            Integer nilai2, Integer nilai3,Integer presentasi){
         this.id = id;
         this.nim = nim;
         this.nilai1= nilai1;
         this.nilai2= nilai2;
         this.nilai3= nilai3;
+        this.presentasi = presentasi;
     }
     
     public String getId(){
@@ -63,5 +64,13 @@ public class NilaiSkripsi {
     
     public void setNilai3(Integer nilai3){
         this.nilai3=nilai3;
+    }
+
+    public Integer getPresentasi() {
+        return presentasi;
+    }
+
+    public void setPresentasi(Integer presentasi) {
+        this.presentasi = presentasi;
     }
 }

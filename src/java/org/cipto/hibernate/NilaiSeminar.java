@@ -11,15 +11,22 @@ package org.cipto.hibernate;
 public class NilaiSeminar {
     private String id;
     private String nim;
-    private Integer nilai;
+    private Integer nilai1;
+    private Integer nilai2;
+    private Integer nilai3;
+    private Integer presentasi;
     public NilaiSeminar(){
         
     }
     
-    public NilaiSeminar(String id, String nim, Integer nilai){
+    public NilaiSeminar(String id, String nim, Integer nilai1, Integer nilai2, 
+            Integer nilai3, Integer presentasi){
         this.id = id;
         this.nim = nim;
-        this.nilai= nilai;
+        this.nilai1= nilai1;
+        this.nilai2= nilai2;
+        this.nilai3= nilai3;
+        this.presentasi= presentasi;
     }
     
     public String getId(){
@@ -37,12 +44,37 @@ public class NilaiSeminar {
     public void setNim(String nim){
         this.nim=nim;
     }
-    
-    public Integer getNilai(){
-        return nilai;
+
+    public Integer getNilai1() {
+        return nilai1;
+    }
+
+    public void setNilai1(Integer nilai1) {
+        this.nilai1 = nilai1;
+    }
+
+    public Integer getNilai2() {
+        return nilai2;
+    }
+
+    public void setNilai2(Integer nilai2) {
+        this.nilai2 = nilai2;
+    }
+
+    public Integer getNilai3() {
+        return nilai3;
+    }
+
+    public void setNilai3(Integer nilai3) {
+        this.nilai3 = nilai3;
+    }
+
+    public Integer getPresentasi() {
+        return presentasi;
+    }
+
+    public void setPresentasi(Integer presentasi) {
+        this.presentasi = presentasi;
     }
     
-    public void setNilai(Integer nilai){
-        this.nilai=nilai;
-    }
 }

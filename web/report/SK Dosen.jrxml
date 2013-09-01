@@ -3,6 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+    <parameter name="kdDosen" class="java.lang.String"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -89,7 +90,7 @@
 	</style>
 	<subDataset name="SkDoseDataset" uuid="12661368-cd9d-4e55-ad7f-f46d39eb8d19">
 		<queryString language="SQL">
-			<![CDATA[select * from v_seminar order by nim]]>
+			<![CDATA[select * from v_seminar where nidn = $P{kdDosen} order by nim]]>
 		</queryString>
 		<field name="nim" class="java.lang.String"/>
 		<field name="nama" class="java.lang.String"/>
@@ -98,7 +99,7 @@
 		<field name="nidn" class="java.lang.String"/>
 	</subDataset>
 	<queryString language="SQL">
-		<![CDATA[select * from v_seminar]]>
+		<![CDATA[select * from v_seminar where nidn = $P{kdDosen}]]>
 	</queryString>
 	<field name="nim" class="java.lang.String"/>
 	<field name="nama" class="java.lang.String"/>
@@ -125,22 +126,22 @@
 	<columnHeader>
 		<band height="21" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="56ac5360-5e4f-4fc7-b754-f5ccaa71a3f1" x="0" y="1" width="92" height="20"/>
+				<reportElement uuid="56ac5360-5e4f-4fc7-b754-f5ccaa71a3f1" style="table" x="0" y="1" width="79" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[NIM]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="56ac5360-5e4f-4fc7-b754-f5ccaa71a3f1" x="92" y="0" width="156" height="20"/>
+				<reportElement uuid="56ac5360-5e4f-4fc7-b754-f5ccaa71a3f1" style="table" x="79" y="1" width="148" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[NAMA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="56ac5360-5e4f-4fc7-b754-f5ccaa71a3f1" x="248" y="0" width="335" height="20"/>
+				<reportElement uuid="56ac5360-5e4f-4fc7-b754-f5ccaa71a3f1" style="table" x="227" y="1" width="356" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[JUDUL KARYA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="56ac5360-5e4f-4fc7-b754-f5ccaa71a3f1" x="583" y="1" width="169" height="20"/>
+				<reportElement uuid="56ac5360-5e4f-4fc7-b754-f5ccaa71a3f1" style="table" x="583" y="0" width="169" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[NAMA DOSEN]]></text>
 			</staticText>
@@ -155,36 +156,36 @@
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
 					<jr:column uuid="6ba6a508-6872-41ba-832e-923bf6b61834" width="78">
-						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 3_TD" height="25" rowSpan="1">
 							<textField isStretchWithOverflow="true">
-								<reportElement uuid="47007e4e-ccd0-477d-babc-4c95912bea89" stretchType="RelativeToTallestObject" x="0" y="0" width="78" height="20"/>
+								<reportElement uuid="47007e4e-ccd0-477d-babc-4c95912bea89" stretchType="RelativeToTallestObject" x="0" y="0" width="78" height="23"/>
 								<textElement/>
 								<textFieldExpression><![CDATA[$F{nim}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column uuid="cfd944d8-9322-4b12-86d7-f2407876f58e" width="150">
-						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 3_TD" height="25" rowSpan="1">
 							<textField isStretchWithOverflow="true">
-								<reportElement uuid="8afa8dee-07f9-4077-bcdf-41ace680ad39" stretchType="RelativeToTallestObject" x="0" y="0" width="150" height="20"/>
+								<reportElement uuid="8afa8dee-07f9-4077-bcdf-41ace680ad39" stretchType="RelativeToTallestObject" x="0" y="0" width="150" height="23"/>
 								<textElement/>
 								<textFieldExpression><![CDATA[$F{nama}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column uuid="e307d8d4-609b-4183-8992-3c81b13d0512" width="353">
-						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 3_TD" height="25" rowSpan="1">
 							<textField isStretchWithOverflow="true">
-								<reportElement uuid="14ff0e86-2e98-4a61-a7aa-8b90e3fc75e0" stretchType="RelativeToTallestObject" x="0" y="0" width="353" height="20"/>
+								<reportElement uuid="14ff0e86-2e98-4a61-a7aa-8b90e3fc75e0" stretchType="RelativeToTallestObject" x="0" y="0" width="353" height="23"/>
 								<textElement/>
 								<textFieldExpression><![CDATA[$F{judul}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column uuid="e1fd1482-66f4-482d-ba9e-ec479fc846d1" width="170">
-						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 3_TD" height="25" rowSpan="1">
 							<textField isStretchWithOverflow="true">
-								<reportElement uuid="226f50bc-3e7d-4993-99a7-c0966aab6b69" stretchType="RelativeToTallestObject" x="0" y="0" width="170" height="20"/>
+								<reportElement uuid="226f50bc-3e7d-4993-99a7-c0966aab6b69" stretchType="RelativeToTallestObject" x="0" y="0" width="170" height="23"/>
 								<textElement/>
 								<textFieldExpression><![CDATA[$F{dosen}]]></textFieldExpression>
 							</textField>

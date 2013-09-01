@@ -56,15 +56,9 @@
                             <p:menuitem value="SK Peserta Magang" icon="ui-icon-document" 
                                         styleClass="mnuitem"/>
                         </p:submenu>
-                        <p:submenu label="SK Pembimbing" styleClass="mnuitem" 
-                                   style="font-size: 12px;" icon="ui-icon-folder-collapsed">
-                            <p:menuitem value="SK Pembimbing Seminar" icon="ui-icon-document" 
-                                        styleClass="mnuitem"/>
-                            <p:menuitem value="SK Pembimbing Skripsi" icon="ui-icon-document" 
-                                        styleClass="mnuitem"/>
-                            <p:menuitem value="SK Pembimbing Magang" icon="ui-icon-document" 
-                                        styleClass="mnuitem"/>
-                        </p:submenu>
+                        <p:menuitem value="SK Pembimbing" styleClass="mnuitem" 
+                                    style="font-size: 12px;" icon="ui-icon-folder-collapsed" onclick="cetakSKperDosen.show();">
+                        </p:menuitem>
                         <p:submenu label="SK Penguji" styleClass="mnuitem" 
                                    style="font-size: 12px;" icon="ui-icon-folder-collapsed">
                             <p:menuitem value="SK Penguji Seminar" icon="ui-icon-document" 
@@ -789,7 +783,7 @@
                             </f:facet>
                         </p:cellEditor>
                     </p:column>
-                    <p:column headerText="Penguji1">
+                    <p:column headerText="Ketua Penguji">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{jadwalSkripsi.penguji1}"/>
@@ -799,7 +793,7 @@
                             </f:facet>
                         </p:cellEditor>
                     </p:column>
-                    <p:column headerText="Penguji2">
+                    <p:column headerText="Sekretaris Sidang">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{jadwalSkripsi.penguji2}"/>
@@ -809,7 +803,7 @@
                             </f:facet>
                         </p:cellEditor>
                     </p:column>
-                    <p:column headerText="Penguji3">
+                    <p:column headerText="Penguji">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{jadwalSkripsi.penguji3}"/>
@@ -899,6 +893,31 @@
                         </p:cellEditor>
                     </p:column>
                 </p:dataTable>
+            </h:form>
+        </p:dialog>
+        <p:dialog widgetVar="cetakSKperDosen"
+                  header="Input Jadwal Sidang Skripsi"
+                  showEffect="fade" hideEffect="fade" 
+                  width="800" height="300" resizable="true" 
+                  appendToBody="true"
+                  >
+            <h:form id="formCetakSkDosen">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Kode Semester"/>
+                    <p:selectOneMenu id="txtKodeTahun" label="Kode Tahun" >
+                        <f:selectItems value="Pilih Kode Tahun" itemLabel="Pilih Kode Tahun"/>
+                    </p:selectOneMenu>
+                    <h:outputText value="Kategori"/>
+                    <p:selectOneMenu id="txtKategori" label="Kategori">
+                        <f:selectItems value="Pilih Kategori" itemLabel="Pilih Kategori"/>
+                    </p:selectOneMenu>
+                    <h:outputText value="Kode Dosen"/>
+                    <p:autoComplete label="Kode Dosen"/>
+                    <h:outputText value="Nama Dosen"/>
+                    <p:inputText label="Nama Dosen"/>
+                </h:panelGrid>
+                <p:commandButton value="Print"/>
+                <p:button value="Cancel" onclick="cetakSKperDosen.hide()"/>
             </h:form>
         </p:dialog>
     </h:body>

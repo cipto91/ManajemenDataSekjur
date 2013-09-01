@@ -168,9 +168,19 @@
         <property name="nim">
             <column name="nim"/>
         </property>
-        <property name="nilai">
+        <property name="nilai1">
             <column name="nilaiuji1"/>
         </property>
+        <property name="nilai2">
+            <column name="nilaiuji2"/>
+        </property>
+        <property name="nilai3">
+            <column name="nilaiuji3"/>
+        </property>
+        <property name="presentasi">
+            <column name="presentasi"/>
+        </property>
+        
     </class>
      <class name="org.cipto.hibernate.JadwalSkripsi" table="v_jadwal_skripsi">
         <id name="nim" type="string" column="nim"></id>
@@ -254,6 +264,9 @@
         </property>
         <property name="nilai3">
             <column name="nilaiuji3"/>
+        </property>
+        <property name="presentasi">
+            <column name="presentasi"/>
         </property>
     </class>
 </hibernate-mapping>

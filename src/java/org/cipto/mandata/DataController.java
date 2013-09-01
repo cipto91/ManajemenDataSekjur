@@ -5,7 +5,9 @@
 package org.cipto.mandata;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -30,7 +32,7 @@ import org.cipto.hibernate.Seminar;
 import org.cipto.hibernate.Skripsi;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
-
+import org.cipto.report.ReportGenController;
 /**
  *
  * @author cipto
@@ -273,7 +275,7 @@ public class DataController {
         if (newVal != null && !newVal.equals(oldVal)) {
             nilaiSeminar.setId(jadwalSeminar.get(index).getSid());
             nilaiSeminar.setNim(jadwalSeminar.get(index).getNim());
-            nilaiSeminar.setNilai(Integer.valueOf(newVal.toString()));
+            nilaiSeminar.setNilai1(Integer.valueOf(newVal.toString()));
             seminar.insertNilai(nilaiSeminar);
             FacesContext.getCurrentInstance()
                     .addMessage(null, new FacesMessage("Data berhasil diinput"));
@@ -335,5 +337,17 @@ public class DataController {
                     .addMessage(null, new FacesMessage("Data berhasil diinput"));
             nilaiSkripsi = new NilaiSkripsi();
         }
+    }
+    
+    public void cetakSKDosen() {
+        
+        String tmpalte = "SK Dosen";
+         Map map = new HashMap();
+         
+         ReportGenController gen = new ReportGenController();
+         if(gen.printReport(map, new StringBuffer("/report/").append(tmpalte)
+                 .append(".jrxml").toString(), tmpalte)){
+             
+         }
     }
 }
